@@ -1,27 +1,27 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: salievak-chart
-  namespace: flux-system
-spec:
-  interval: 10m
-  type: oci
-  url: oci://ghcr.io/salievak/helm-charts 
-  secretRef:
-    name: helm-registry-creds
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: salievak2
-  namespace: default
-spec:
-  interval: 10m
-  chart:
-    spec:
-      chart: salievak-chart
-      version: ">=0.2.0"  # або конкретна версія
-      sourceRef:
-        kind: HelmRepository
-        name: salievak-chart
-        namespace: flux-system
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: HelmRepository
+# metadata:
+#   name: salievak-chart
+#   namespace: flux-system
+# spec:
+#   interval: 10m
+#   type: oci
+#   url: oci://ghcr.io/salievak/helm-charts 
+#   secretRef:
+#     name: helm-registry-creds
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: salievak2
+#   namespace: default
+# spec:
+#   interval: 10m
+#   chart:
+#     spec:
+#       chart: salievak-chart
+#       version: ">=0.2.0"  # або конкретна версія
+#       sourceRef:
+#         kind: HelmRepository
+#         name: salievak-chart
+#         namespace: flux-system
