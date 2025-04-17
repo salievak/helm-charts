@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: salievak-chart
+  namespace: flux-system
+spec:
+  interval: 10m
+  type: oci
+  url: oci://ghcr.io/salievak/helm-charts 
+  secretRef:
+    name: helm-registry-creds
+
