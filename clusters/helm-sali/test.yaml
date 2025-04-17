@@ -13,8 +13,8 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: salievak
-  namespace: flux-system
+  name: salievak2
+  namespace: default
 spec:
   interval: 10m
   chart:
