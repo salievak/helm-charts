@@ -4,7 +4,7 @@ metadata:
   name: salievak-app
   namespace: argocd
 spec:
-  #repoURL: oci://ghcr.io/salievak/helm-charts
+  repoURL: oci://ghcr.io/salievak/helm-charts
   chart: salievak-chart
   version: ">=0.2.0"
   sourceRef:
