@@ -1,21 +1,16 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: salievak-app
-#   namespace: argocd
-# spec:
-#   project: default
-#   source:
-#     type: "oci"
-#     repoURL: "ghcr.io/salievak/helm-charts"
-#     chart: "salievak-chart"
-#     targetRevision: "0.2.0"
-#     helm:
-#       releaseName: salievak-app
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: default
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: salievak-app
+  namespace: argocd
+spec:
+ project: default
+ source:
+   repoURL: ghcr.io/salievak/helm-charts
+   targetRevision: 0.2.0
+   chart: salievak-chart
+ destination:
+   server: https://kubernetes.default.svc
+   namespace: default
+ syncPolicy:
+   automated: {}
