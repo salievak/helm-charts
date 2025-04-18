@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    type: helm
+    type: "oci"
     repoURL: "ghcr.io/salievak/helm-charts"
     chart: "salievak-chart"
     targetRevision: "0.2.0"
