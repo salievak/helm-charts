@@ -4,17 +4,15 @@ metadata:
   name: salievak-app
   namespace: argocd
 spec:
-  project: default
-  source:  
-    #repoURL: oci://ghcr.io/salievak/helm-charts
-    chart: salievak-chart
-    targetRevision: ">=0.2.0"
-    sourceRef:
-      kind: Secret
-      name: ghcr-oci-helm-secret
-      namespace: argocd
-    helm:
-      releaseName: salievak-app
+  #repoURL: oci://ghcr.io/salievak/helm-charts
+  chart: salievak-chart
+  version: ">=0.2.0"
+  sourceRef:
+    kind: Secret
+    name: ghcr-oci-helm-secret
+    namespace: argocd
+  helm:
+    releaseName: salievak-app
   destination:
     server: https://kubernetes.default.svc
     namespace: default
