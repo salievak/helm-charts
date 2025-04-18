@@ -7,7 +7,7 @@ spec:
   project: default
   type: helm
   source:
-    repoURL: "ghcr.io/salievak/helm-charts"
+    repoURL: "oci://ghcr.io/salievak/helm-charts"
     chart: "salievak-chart"
     targetRevision: "0.2.0"
     helm:
