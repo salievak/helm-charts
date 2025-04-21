@@ -16,7 +16,7 @@ app:
     port: 80
   ingress:
     enabled: true
-    host: helm1.ksalieva06.pp.ua
+    host: helm2.ksalieva06.pp.ua
     path: /
 
 controller:
