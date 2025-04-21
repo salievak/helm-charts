@@ -14,8 +14,8 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          helm lint helm-chart
-          helm package helm-chart \
+          helm lint helm-charts
+          helm package helm-charts \
             --version ${GITHUB_SHA::8} \
             --destination .
 
