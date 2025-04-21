@@ -1,0 +1,43 @@
+app:
+  name: salievak-node-app
+  image:
+    repository: salievak4685/salievak-node-app
+    tag: latest
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    host: helm.ksalieva06.pp.ua
+    path: /
+
+controller:
+  ingressClassResource:
+    name: my-nginx
+    enabled: true
+    default: true
+  ingressController:
+    enabled: true  
+    image:
+      repository: k8s.gcr.io/ingress-nginx/controller
+      tag: v1.9.0
+    service:
+      type: NodePort
+  ingressClass: my-nginx
+
+  extraArgs:
+    enable-ssl-passthrough: "true"
+
+  metrics:
+    enabled: true
+
+  admissionWebhooks:
+    enabled: true

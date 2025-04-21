@@ -1,0 +1,59 @@
+{{- if .Values.controller.ingressController.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nginx-ingress-serviceaccount
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ingress-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress
+    spec:
+      serviceAccountName: nginx-ingress-serviceaccount
+      containers:
+        - name: controller
+          image: "{{ .Values.controller.ingressController.image.repository }}:{{ .Values.controller.ingressController.image.tag }}"
+          args:
+            - /nginx-ingress-controller
+            - --publish-service=$(POD_NAMESPACE)/nginx-ingress-service
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-service
+spec:
+  type: {{ .Values.controller.ingressController.service.type }}
+  selector:
+    app: nginx-ingress
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 443
+{{- end }}
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 1.0.2
+description: A Helm chart for deploying salievak-node-app and NGINX Ingress Controller
+name: salievak-chart
+type: application
+version: 0.2.1
