@@ -1,32 +1,30 @@
-name: Build and Publish OCI Helm Chart
+name: Publish Helm Chart
 
 on:
   push:
+    branches:
+      - main  # Гілка, з якої запускається pipeline
     paths:
-      - 'salievak-chart/**'   # Слідкуємо лише за змінами у папці чарта
-  pull_request:
+      - 'helm-charts/**'  # Шлях до вашого чарту
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.12.0
 
-      - name: Helm Lint
-        run: helm lint ./salievak-chart
-
-      - name: Package Helm Chart
-        run: helm package ./salievak-chart --destination packaged-chart
-
-      - name: Login to OCI Registry
-        run: helm registry login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password ${{ secrets.GHCR_TOKEN }}
-
-      - name: Publish Chart to OCI Registry
+      - name: Configure OCI Registry
         run: |
-          CHART_PACKAGE=$(ls packaged-chart/*.tgz)
-          helm push "$CHART_PACKAGE" oci://ghcr.io/salievak/helm-charts/salievak-chart
+          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u salievak --password-stdin
 
+      - name: Package and Push Chart
+        run: |
+          helm dependency update helm-charts
+          helm package helm-charts -d ./dist
+          helm push ./dist/salievak-chart-*.tgz oci://ghcr.io/salievak/helm-charts

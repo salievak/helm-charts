@@ -5,7 +5,9 @@
 # Common VCS dirs
 .git/
 .gitignore
-.github
+.github/
+argocd/
+helm-sali/
 .bzr/
 .bzrignore
 .hg/
